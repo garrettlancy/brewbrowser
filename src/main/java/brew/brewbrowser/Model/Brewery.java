@@ -1,9 +1,8 @@
 package brew.brewbrowser.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="breweries", uniqueConstraints = {
@@ -11,28 +10,59 @@ import javax.validation.constraints.NotBlank;
                 "name"
         }),
         @UniqueConstraint(columnNames = {
-                "breweryId"
+                "brewery_id"
         })
 })
 public class Brewery {
 
-    @NotBlank
+    @OneToMany
+    @JoinTable(name="brewery_beers",
+            joinColumns = @JoinColumn(name="brewery_id"),
+            inverseJoinColumns = @JoinColumn(name="beer_id")
+    )
+    private List<Beer> beers = new ArrayList<>();
+
+    @OneToMany
+    @JoinTable(name="locations",
+            joinColumns = @JoinColumn(name="brewery_id"),
+            inverseJoinColumns = @JoinColumn(name="location_id")
+    )
+    private List<BreweryLocation> breweryLocations = new ArrayList<>();
+
+    @Id
+    @Column(name="brewery_id")
     private String breweryId;
 
-    @NotBlank
+    @Column(name="name")
     private String name;
 
-
+    @Column(name="description")
     private String description;
 
-
+    @Column(name="website")
     private String website;
 
-
+    @Column(name="icon")
     private String icon;
 
-
+    @Column(name="image")
     private String image;
+
+    public List<BreweryLocation> getBreweryLocations() {
+        return breweryLocations;
+    }
+
+    public void setBreweryLocations(List<BreweryLocation> breweryLocations) {
+        this.breweryLocations = breweryLocations;
+    }
+
+    public List<Beer> getBeers() {
+        return beers;
+    }
+
+    public void setBeers(List<Beer> beers) {
+        this.beers = beers;
+    }
 
     public String getBreweryId() {
         return breweryId;

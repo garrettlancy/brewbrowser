@@ -1,54 +1,39 @@
 package brew.brewbrowser.Model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="beer", uniqueConstraints = {
+@Table(name="beers", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "name"
         }),
         @UniqueConstraint(columnNames = {
-                "beerId"
+                "beer_id"
         })
 })
 public class Beer {
 
-    @OneToOne
-    @JoinTable(name="brewery_beers",
-    joinColumns = @JoinColumn(name="breweryId"),
-            inverseJoinColumns = @JoinColumn(name="beerId")
-    )
-    private Brewery brewery;
-
-    @NotBlank
+    @Id
+    @Column(name="beer_id")
     private String beerId;
 
-    @NotBlank
+    @Column(name="name")
     private String name;
 
-
+    @Column(name="abv")
     private String abv;
 
-
+    @Column(name="style_name")
     private String styleName;
 
-
+    @Column(name="style_description")
     private String styleDescription;
 
-
+    @Column(name="label_icon")
     private String labelIcon;
 
-
+    @Column(name="label_image")
     private String labelImage;
-
-    public Brewery getBrewery() {
-        return brewery;
-    }
-
-    public void setBrewery(Brewery brewery) {
-        this.brewery = brewery;
-    }
 
     public String getBeerId() {
         return beerId;

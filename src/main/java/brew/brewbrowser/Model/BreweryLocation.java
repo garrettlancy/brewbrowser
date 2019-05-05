@@ -1,44 +1,41 @@
 package brew.brewbrowser.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name="brewery_locations", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "name"
-        }),
         @UniqueConstraint(columnNames = {
                 "location_id"
         })
 })
 public class BreweryLocation {
 
+    @Id
+    @Column(name="location_id")
     private String locationId;
 
-
+    @Column(name="street_address")
     private String streetAddress;
 
-
+    @Column(name="locality")
     private String locality;
 
-
+    @Column(name="region")
     private String region;
 
-
+    @Column(name="postal_code")
     private String postalCode;
 
-
+    @Column(name="phone")
     private String phone;
 
-
+    @Column(name="website")
     private String website;
 
-
+    @Column(name="latitude")
     private double latitude;
 
-
+    @Column(name="longitude")
     private double longitude;
 
     public String getLocationId() {
